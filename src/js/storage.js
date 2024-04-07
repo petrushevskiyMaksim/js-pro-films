@@ -1,4 +1,4 @@
-import { STORAGE_FILMS_KEY } from './constants';
+import { STORAGE_FILMS_KEY } from './constants.js';
 import { initializeApp } from 'firebase/app';
 import {
 	getFirestore,

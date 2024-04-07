@@ -1,6 +1,6 @@
-import { Model } from './model';
-import { View } from './view';
-import { Storage } from './storage';
+import { Model } from './model.js';
+import { View } from './view.js';
+import { Storage } from './storage.js';
 
 export class Controller {
 	constructor() {
