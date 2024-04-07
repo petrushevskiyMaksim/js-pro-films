@@ -1,6 +1,6 @@
-import { TEXT_LIST_DEFAULT } from './constants.js';
+import { TEXT_LIST_DEFAULT } from './constants';
 
-class View {
+export class View {
 	constructor({ onNewFilm, onClearList, onClickFilm, onUpdateData }) {
 		this.inputNameFilmNode = document.getElementById('inputNameFilm');
 		this.addFilmBtnNode = document.getElementById('addFilmButton');
