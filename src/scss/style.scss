@@ -80,7 +80,7 @@ body {
 }
 
 .list-films__input-wrapper:hover {
-	.list-films__input-text {
+	&__input-text {
 		background-color: #3a3939;
 		transition: background-color 0.3s ease-in;
 	}

@@ -1,4 +1,4 @@
-import { TEXT_LIST_DEFAULT } from './constants';
+import { TEXT_LIST_DEFAULT } from './constants.js';
 
 export class View {
 	constructor({ onNewFilm, onClearList, onClickFilm, onUpdateData }) {
