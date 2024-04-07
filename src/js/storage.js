@@ -25,7 +25,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export class Storage {
+class Storage {
 	constructor() {
 		this.db = getFirestore(app);
 		this.key = STORAGE_FILMS_KEY;

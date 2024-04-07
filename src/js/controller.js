@@ -1,8 +1,8 @@
-import { Model } from './model.js';
-import { View } from './view.js';
-import { Storage } from './storage.js';
+// import { Model } from './model.js';
+// import { View } from './view.js';
+// import { Storage } from './storage.js';
 
-export class Controller {
+ class Controller {
 	constructor() {
 		this.model = new Model({});
 
