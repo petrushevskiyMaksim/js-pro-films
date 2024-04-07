@@ -1,12 +1,13 @@
+import { STORAGE_FILMS_KEY } from './constants';
 import { initializeApp } from 'firebase/app';
 import {
 	getFirestore,
 	collection,
-	doc,
-	setDoc,
 	addDoc,
+	setDoc,
 	getDocs,
 	writeBatch,
+	doc,
 	serverTimestamp,
 	query,
 	orderBy,
@@ -14,65 +15,60 @@ import {
 } from 'firebase/firestore';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyD6C5nZVM5kx8bHEgUWetFiprbpK_lak4E',
-	authDomain: 'todo-3f672.firebaseapp.com',
-	projectId: 'todo-3f672',
-	storageBucket: 'todo-3f672.appspot.com',
-	messagingSenderId: '483023665879',
-	appId: '1:483023665879:web:e8d260da769f5e178bce92',
+	apiKey: 'AIzaSyA1IxvImFlN4Lv37j2xivAtywQG73oT6TU',
+	authDomain: 'films-ff73e.firebaseapp.com',
+	projectId: 'films-ff73e',
+	storageBucket: 'films-ff73e.appspot.com',
+	messagingSenderId: '688364422913',
+	appId: '1:688364422913:web:29467ef5a0e4fb12ec3d00',
 };
 
-export function createStorage(key) {
-	const app = initializeApp(firebaseConfig);
-	const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
 
-	return {
-		key,
-		db,
-		pull: async function () {
-			const ref = collection(this.db, this.key);
-			const q = query(ref, orderBy('createdAt'));
-			const querySnapshot = await getDocs(q);
+export class Storage {
+	constructor() {
+		this.db = getFirestore(app);
+		this.key = STORAGE_FILMS_KEY;
+	}
 
-			const todos = [];
+	async pull() {
+		const ref = collection(this.db, this.key);
+		const q = query(ref, orderBy('createdAt'));
+		const querySnapshot = await getDocs(q);
+		const films = [];
 
-			querySnapshot.forEach(doc => {
-				todos.push({
-					id: doc.id,
-					title: doc.data().title,
-					done: doc.data().done,
-				});
+		querySnapshot.forEach(doc => {
+			films.push({
+				id: doc.id,
+				title: doc.data().title,
 			});
 
-			return todos;
-		},
-		push: async function (todo) {
-			try {
-				await setDoc(doc(this.db, this.key, todo.id), {
-					title: todo.title,
-					done: todo.done,
-					createdAt: serverTimestamp(),
-				});
-			} catch (e) {
-				console.error('Error adding document: ', e);
-			}
-		},
-		delete: async function ({ todosIds }) {
-			const batch = writeBatch(this.db);
+			console.log(`${doc.id} => ${doc.data().title}`);
+		});
+		return films;
+	}
 
-			todosIds.forEach(id => {
-				const ref = doc(this.db, this.key, id);
-				batch.delete(ref);
+	async push(film) {
+		try {
+			const docRef = await addDoc(collection(this.db, this.key), {
+				title: film.title,
+				done: false,
+				createdAt: serverTimestamp(),
 			});
+			console.log('Document written with ID: ', docRef.id);
+		} catch (e) {
+			console.error('Error adding document: ', e);
+		}
+	}
 
-			await batch.commit();
-		},
-		update: async function (todo) {
-			const ref = doc(this.db, this.key, todo.id);
+	async delete(films) {
+		const batch = writeBatch(this.db);
 
-			await updateDoc(ref, {
-				done: todo.done,
-			});
-		},
-	};
+		films.forEach(film => {
+			const ref = doc(this.db, this.key, film.id);
+			batch.delete(ref);
+		});
+
+		await batch.commit();
+	}
 }

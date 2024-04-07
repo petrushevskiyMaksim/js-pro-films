@@ -1,45 +1,31 @@
-import '../scss/style.scss';
-import { TODOS_STORAGE_KEY } from './constans';
-import { createTodosModel } from './model';
-import { createStorage } from './storage';
-import { createView } from './view';
+import { Controller } from './controller';
 
-const inputNode = document.getElementById('input');
-const btnNode = document.getElementById('btn');
-const btnClearNode = document.getElementById('clearBtn');
+const app = new Controller();
 
-const initialTodos = [];
-const model = createTodosModel(initialTodos);
-const view = createView('output', handleclickTodo);
-const storage = createStorage(TODOS_STORAGE_KEY);
+app.init();
 
-storage.pull().then(todos => {
-	model.setTodos(todos);
-	view.renderTodos(model.getTodos());
-});
-
-btnNode.addEventListener('click', function () {
-	const todoTitle = inputNode.value;
-
-	const todo = model.addTodo({
-		title: todoTitle,
-	});
-
-	view.addTodo(todo);
-
-	storage.push(todo);
-});
-
-btnClearNode.addEventListener('click', function () {
-	storage.delete(model.getTodos());
-
-	model.setTodos([]);
-
-	view.clearTodos();
-});
-
-function handleclickTodo(id) {
-	model.toggleTodo(id);
-
-	storage.update(model.getTodo(id));
-}
+// function getElementHTML(film, index) {
+// 	return `
+// 		<li class="list-filmsIds__item ${film.complited ? 'list-filmsIds__item--bg' : ''}">
+// 			<input
+// 				id="inputCheckMovies"
+// 				class="list-filmsIds__input"
+// 				type="checkbox"
+// 			/>
+// 			<label data-type="toggle" data-index="${index}" class="${
+// 		filmsIds.complited ? 'label--checked' : ''
+// 	}" for="inputCheckMovies"></label>
+// 			<p id="textFilmName" class="list-filmsIds__text ${
+// 				filmsIds.complited ? 'list-filmsIds--line-throgh' : ''
+// 			}">${filmsIds.title}</p>
+// 			<div data-type="remove" data-index="${index}" class="list-filmsIds__image-close">
+// 				<img
+// 					data-type="remove"
+// 					data-index="${index}"
+// 					class="list-filmsIds__icon-close"
+// 					src="./images/close.svg"
+// 					alt="кнопка удалить из списка"
+// 					/>
+// 					</div>
+// 			</li>`;
+// }

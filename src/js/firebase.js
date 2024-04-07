@@ -1,25 +1,15 @@
-async function add() {
-	try {
-		const docRef = await addDoc(collection(db, 'todos'), {
-			title: 'Задача 3',
-			status: 'active',
-		});
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
-		console.log('Document written with ID: ', docRef.id);
-	} catch (e) {
-		console.error('Error adding document: ', e);
-	}
-}
+const firebaseConfig = {
+	apiKey: 'AIzaSyA1IxvImFlN4Lv37j2xivAtywQG73oT6TU',
+	authDomain: 'filmsIds-ff73e.firebaseapp.com',
+	projectId: 'filmsIds-ff73e',
+	storageBucket: 'filmsIds-ff73e.appspot.com',
+	messagingSenderId: '688364422913',
+	appId: '1:688364422913:web:29467ef5a0e4fb12ec3d00',
+};
 
-async function get() {
-	const querySnapshot = await getDocs(collection(db, 'todos'));
-	querySnapshot.forEach(doc => {
-		console.log(`${doc.id} => ${doc.data().title} ${doc.data().status}`);
-	});
-}
+const app = initializeApp(firebaseConfig);
 
-
-
-
-
-
+const db = getFirestore(app);

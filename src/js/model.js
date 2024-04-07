@@ -1,46 +1,23 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export function createTodosModel(todos) {
-	return {
-		todosIds: [],
-		todosById: {},
-		addTodo: function ({ title }) {
-			const todo = {
-				title,
-				done: false,
-				id: uuidv4(),
-			};
+export class Model {
+	constructor({}) {
+		this.films = [];
+	}
 
-			this.todosIds.push(todo.id);
-			this.todosById[todo.id] = todo;
+	update(films) {
+		this.films = films;
+	}
 
-			return todo;
-		},
+	add(film) {
+		this.films.push(film);
+	}
 
-		setTodos: function (todos) {
-			this.todosIds = [];
-			this.todosById = {};
+	get() {
+		return this.films;
+	}
 
-			todos.forEach(todo => {
-				this.todosIds.push(todo.id);
-
-				this.todosById[todo.id] = todo;
-			});
-		},
-
-		getTodos: function () {
-			return {
-				todosById: this.todosById,
-				todosIds: this.todosIds,
-			};
-		},
-
-		toggleTodo: function (id) {
-			this.todosById[id].done = !this.todosById[id].done;
-		},
-
-		getTodo: function (id) {
-			return this.todosById[id];
-		},
-	};
+	clear() {
+		this.films = [];
+	}
 }
