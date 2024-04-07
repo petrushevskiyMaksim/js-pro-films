@@ -35,7 +35,7 @@ export class View {
 
 		input.classList.add('list-films__input');
 		input.setAttribute('type', 'checkbox');
-		input.id = film.id;
+		input.setAttribute('id', film.id);
 
 		lable.setAttribute('for', film.id);
 
