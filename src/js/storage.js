@@ -1,5 +1,5 @@
 import { STORAGE_FILMS_KEY } from './constants.js';
-import { initializeApp } from '/firebase/app';
+import { initializeApp } from './firebase/app';
 import {
 	getFirestore,
 	collection,
@@ -12,7 +12,7 @@ import {
 	query,
 	orderBy,
 	updateDoc,
-} from 'firebase/firestore';
+} from './firebase/firestore';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyA1IxvImFlN4Lv37j2xivAtywQG73oT6TU',
