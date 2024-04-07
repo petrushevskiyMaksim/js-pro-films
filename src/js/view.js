@@ -46,7 +46,7 @@ export class View {
 		div.classList.add('list-films__image-close');
 
 		img.classList.add('list-films__icon-close');
-		img.src = './images/close.svg';
+		img.src = './src/images/close.svg';
 		img.alt = 'кнопка удалить из списка';
 
 		if (film.done) {
